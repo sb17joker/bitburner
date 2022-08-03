@@ -14,12 +14,12 @@ const doc = eval("document");
 export function getAllTIXStocks(ns) {
 	let stocks = [];
 	for (let s of stock_list) {
-		stocks.push(new NoTIXStock(ns, s));
+		stocks.push(new WSEStock(ns, s));
 	}
 	return stocks;
 }
 
-export default class NoTIXStock extends BaseStock {
+export default class WSEStock extends BaseStock {
 	constructor(ns, ticker) {
 		super();
 		this.ns = ns;
