@@ -1,5 +1,6 @@
 import BaseStock from "./if.stock";
 import "https://code.jquery.com/jquery-3.6.0.min.js";
+//import { getStocks } from "./200mStocks.js";
 
 const stock_list = ["ECP", "MGCP", "BLD", "CLRK", "OMTK", "FSIG", "KGI", "FLCM", "STM", "DCOMM", "HLS", "VITA", "ICRS", "UNV", "AERO", "OMN", "SLRS", "GPH", "NVMD", "WDS", "LXO", "RHOC", "APHE", "SYSC", "CTK", "NTLK", "OMGA", "FNS", "JGN", "SGC", "CTYS", "MDYN", "TITN"]
 const cycleLength = 75;
@@ -38,7 +39,7 @@ export default class WSEStock extends BaseStock {
 			bull: this.getAskPrice(this.ticker),
 			bear: this.getBidPrice(this.ticker),
 			avg: (this.getAskPrice(this.ticker) + this.getBidPrice(this.ticker)) / 2
-		}
+		} 
 	}
 
 	get position() {
@@ -73,7 +74,7 @@ export default class WSEStock extends BaseStock {
 	get bullish() { return this.forecast > .535; }
 	get bearish() { return this.forecast < .465; }
 
-	get hasTicked() { return this.price.avg != this.lastPrice }
+	get hasTicked() { /*console.log("Price Ave: " + this.price.ave + "Last Price: " + this.lastprice);*/ return this.price.avg != this.lastPrice }
 
 	onTickDetected() {
 		this.currentTick = (this.currentTick + 1) % 75;
@@ -127,7 +128,6 @@ export default class WSEStock extends BaseStock {
 		for (let s of stocks) {
 			if (s.sym === ticker) return s.max;
 		}
-
 	}
 	getAskPrice(ticker) {
 		const stocks = JSON.parse(this.ns.read("stockData.txt"));
